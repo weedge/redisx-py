@@ -30,11 +30,30 @@ def parse_usearch_get_index_result(resp) -> Union[Dict, None]:
     return pairs_to_dict(resp, decode_keys=True, decode_string_values=True)
 
 
+def parse_usearch_get_node_result(resp) -> Union[Dict, None]:
+    if len(resp) == 0:
+        return None
+    return pairs_to_dict(resp, decode_keys=True, decode_string_values=True)
+
+
+def parse_usearch_kann_search_result(resp) -> Union[Dict, None]:
+    if len(resp) == 0:
+        return None
+    return pairs_to_dict(resp, decode_keys=True, decode_string_values=True)
+
+
 REDISX_RESPONSE_CALLBACKS = {
     # RedisXANN Usearch Vector
     define.CmdName.USEARCH_CREATE_INDEX: bool_ok,
     define.CmdName.USEARCH_GET_INDEX: parse_usearch_get_index_result,
     define.CmdName.USEARCH_DEL_INDEX: int_or_none,
+    define.CmdName.USEARCH_ADD_NODE: bool_ok,
+    define.CmdName.USEARCH_GET_NODE: parse_usearch_get_node_result,
+    define.CmdName.USEARCH_DEL_NODE: int_or_none,
+    define.CmdName.USEARCH_ADD_ID_NODE: bool_ok,
+    define.CmdName.USEARCH_GET_ID_NODE: parse_usearch_get_node_result,
+    define.CmdName.USEARCH_DEL_ID_NODE: int_or_none,
+    define.CmdName.USEARCH_SEARCH_KANN: parse_usearch_kann_search_result,
 }
 
 

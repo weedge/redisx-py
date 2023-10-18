@@ -1,3 +1,4 @@
+from random import random
 from redisx.client import Client
 
 # change the following configuration for your Tair.
@@ -16,3 +17,7 @@ def get_client() -> Client:
         username=REDIS_USERNAME,
         password=REDIS_PASSWORD,
     )
+
+
+def get_random_vectors(dim: int, n: int):
+    return [[random() for _ in range(dim)] for _ in range(n)]

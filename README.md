@@ -6,11 +6,16 @@
 * python version >=3.10
 * redis-py version == 5.0.0
 
+```shell
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
 Install from pip:
 ```shell
 python3 -m venv .venv
 source .venv/bin/activate
-pip3 install tair
+pip3 install redisx
 ```
 
 Install from source:
