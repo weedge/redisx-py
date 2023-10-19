@@ -6,11 +6,6 @@
 * python version >=3.10
 * redis-py version == 5.0.0
 
-```shell
-python3 -m venv .venv
-source .venv/bin/activate
-```
-
 Install from pip:
 ```shell
 python3 -m venv .venv
