@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from conf_cases import get_client, get_random_vectors
+from conf_cases import get_client, get_random_vectors, test_vector
 from redis import ResponseError
 from redisx.define import UsearchQuantizationType
 
@@ -129,8 +129,17 @@ def kann_search(index_name: str, k: int, query_vector: []):
         return False
 
 
-if __name__ == "__main__":
-    dim = 4
+def test_case():
+    print("delete_index res {}".format(delete_index("test_case0")))
+    print("create_index res {}".format(create_index("test_case0", 1024)))
+    print(add_vector("test_case0", "c0", test_vector))
+    # print(get_vector("test_case0", "c0"))
+    print(kann_search("test_case0", 1, test_vector))
+    print("delete_index res {}".format(delete_index("test_case0")))
+
+
+def example_all():
+    dim = 10
 
     print("delete_index res {}".format(delete_index("test_idx0")))
     print("create_index res {}".format(create_index("test_idx0", dim)))
@@ -148,12 +157,12 @@ if __name__ == "__main__":
         print("del_vector_id res {}".format(del_vector_id("test_idx0", i)))
 
     print("\n======= kann search =====\n")
-    for i, vector in enumerate(get_random_vectors(dim, 100)):
+    for i, vector in enumerate(get_random_vectors(dim, 10)):
         name = "n%i" % i
         print("add_vector {} {} res {}".format(
             name, vector, add_vector("test_idx0", name, vector)))
         # print("get_vector res {}".format(get_vector("test_idx0", name)))
-    for i, vector in enumerate(get_random_vectors(dim, 100)):
+    for i, vector in enumerate(get_random_vectors(dim, 10)):
         print("add_vector_id {} {} res {}".format(
             i, vector, add_vector_id("test_idx0", i, vector)))
         # print("get_vector_id res {}".format(get_vector_id("test_idx0", i)))
@@ -165,4 +174,10 @@ if __name__ == "__main__":
             kann_search("test_idx0", k, query_vector)))
 
     print("delete_index res {}".format(delete_index("test_idx0")))
+
+
+if __name__ == "__main__":
+    # test_case()
+    example_all()
+
     cli.close()

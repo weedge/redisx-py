@@ -6,7 +6,7 @@ setup(
     description="Python client for RedisX",
     long_description=open("README.md").read().strip(),
     long_description_content_type="text/markdown",
-    version="0.1.0",
+    version="0.1.6",
     license="MIT",
     url="https://github.com/weedge/redisx-py",
     author="weedge",

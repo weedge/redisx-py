@@ -40,7 +40,7 @@ def parse_usearch_get_node_result(resp) -> Union[Dict, None]:
 def parse_usearch_kann_search_result(resp) -> Union[Dict, None]:
     if len(resp) == 1:
         return {"size": int(resp[0]), "vals": None}
-    if (len(resp)-1) % 2 == 0:
+    if len(resp) > 1:
         vals = []
         for item in resp[1:]:
             vals.append(pairs_to_dict(
