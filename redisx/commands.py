@@ -6,6 +6,7 @@ from redisx import define
 from redis._parsers.helpers import (
     bool_ok,
     pairs_to_dict,
+    parse_list_of_dicts,
 )
 from redis import Redis
 from redis.asyncio import Redis as AsyncRedis
@@ -21,7 +22,7 @@ class RedisXCommands(
 def int_or_none(response):
     if response is None:
         return None
-    return float(response)
+    return int(response)
 
 
 def parse_usearch_get_index_result(resp) -> Union[Dict, None]:
@@ -37,9 +38,15 @@ def parse_usearch_get_node_result(resp) -> Union[Dict, None]:
 
 
 def parse_usearch_kann_search_result(resp) -> Union[Dict, None]:
-    if len(resp) == 0:
-        return None
-    return pairs_to_dict(resp, decode_keys=True, decode_string_values=True)
+    if len(resp) == 1:
+        return {"size": int(resp[0]), "vals": None}
+    if (len(resp)-1) % 2 == 0:
+        vals = []
+        for item in resp[1:]:
+            vals.append(pairs_to_dict(
+                item, decode_keys=True, decode_string_values=True))
+        return {"size": int(resp[0]), "vals": vals}
+    return None
 
 
 REDISX_RESPONSE_CALLBACKS = {

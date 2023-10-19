@@ -13,7 +13,7 @@ class TextVectorEncoder:
     @classmethod
     def vector_str(cls, vector: VectorType) -> bytes:
         """
-        @return e.g: "0.1 0.0 0.2"
+        @return e.g: "0.1,0.0,0.2"
         """
         s = ",".join(["%f" % x for x in vector])
         return bytes(s, encoding="ascii")
@@ -178,7 +178,7 @@ class UsearchVectorCommands(CommandsProtocol):
     ):
         """
         KANN search from index by query vector
-        cmd eg: usearch.search.kann idx0 6 0.0 0.0 0.0 "" ef_search 10
+        cmd eg: usearch.search.kann idx0 6 0.0,0.0,0.0 "" ef_search 10
         """
         params = reduce(lambda x, y: x + y, kwargs.items(), ())
         if not isinstance(query_vector, str):
@@ -188,5 +188,5 @@ class UsearchVectorCommands(CommandsProtocol):
             index_name,
             k,
             query_vector,
-            params
+            *params
         )

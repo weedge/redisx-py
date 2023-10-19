@@ -1,9 +1,9 @@
 from random import random
 from redisx.client import Client
 
-# change the following configuration for your Tair.
+# change the following configuration for your redis.
 REDIS_HOST = "localhost"
-REDIS_PORT = 6666
+REDIS_PORT = 6363
 REDIS_DB = 0
 REDIS_USERNAME = ""
 REDIS_PASSWORD = ""
