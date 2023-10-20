@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 from conf_cases import get_client, get_random_vectors, test_vector
 from redis import ResponseError
-from redisx.define import UsearchQuantizationType
+from redisx.define import UsearchQuantizationType, DistanceMetric
 
 cli = get_client()
 
@@ -14,7 +14,9 @@ def create_index(index_name: str, dim: int):
     try:
         return cli.create_index(
             index_name, dim,
-            quantization=UsearchQuantizationType.F64)
+            metric=DistanceMetric.L2,
+            quantization=UsearchQuantizationType.F32,
+        )
     except ResponseError as e:
         print(e)
         return None
@@ -132,6 +134,7 @@ def kann_search(index_name: str, k: int, query_vector: []):
 def test_case():
     print("delete_index res {}".format(delete_index("test_case0")))
     print("create_index res {}".format(create_index("test_case0", 1024)))
+    print("get_index res {}".format(get_index("test_case0")))
     print(add_vector("test_case0", "c0", test_vector))
     # print(get_vector("test_case0", "c0"))
     print(kann_search("test_case0", 1, test_vector))
@@ -177,7 +180,7 @@ def example_all():
 
 
 if __name__ == "__main__":
-    # test_case()
-    example_all()
+    test_case()
+    # example_all()
 
     cli.close()

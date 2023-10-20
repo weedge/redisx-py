@@ -4,12 +4,12 @@ class DistanceMetric:
     InnerProduct = "IP"
     Jaccard = "JACCARD"
     Cosine = "COS"
-    L2sq = "L2SQ",
-    Pearson = "PEARSON",
-    Haversine = "HAVERSINE",
-    Hamming = "HAMMING",
-    Tanimoto = "TANIMOTO",
-    Sorensen = "SORENSEN",
+    L2sq = "L2SQ"
+    Pearson = "PEARSON"
+    Haversine = "HAVERSINE"
+    Hamming = "HAMMING"
+    Tanimoto = "TANIMOTO"
+    Sorensen = "SORENSEN"
 
 
 # downcast
